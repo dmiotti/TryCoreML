@@ -58,6 +58,10 @@ final class CameraVC: UIViewController {
 
     @IBAction func switchMLModel(_ sender: Any) {
         let alert = UIAlertController(title: "Choose ML model", message: nil, preferredStyle: .actionSheet)
+        let googLeNetPlacesAction = UIAlertAction(title: "GoogLeNetPlaces", style: .default) { _ in
+            self.model.modelType = .googLeNetPlaces
+            self.configureInterfaceBasedOnModelType()
+        }
         let inceptionAction = UIAlertAction(title: "Inceptionv3", style: .default) { _ in
             self.model.modelType = .inceptionv3
             self.configureInterfaceBasedOnModelType()
@@ -71,6 +75,7 @@ final class CameraVC: UIViewController {
             self.configureInterfaceBasedOnModelType()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(googLeNetPlacesAction)
         alert.addAction(inceptionAction)
         alert.addAction(resnet50Action)
         alert.addAction(vgg16Action)
@@ -93,6 +98,7 @@ final class CameraVC: UIViewController {
     private func configureInterfaceBasedOnModelType() {
         let type = model.modelType
         switch type {
+        case .googLeNetPlaces: switchMLBarBtn.title = "GoogLeNetPlaces"
         case .inceptionv3:  switchMLBarBtn.title = "Inceptionv3"
         case .resnet50:     switchMLBarBtn.title = "Resnet50"
         case .vgg16:        switchMLBarBtn.title = "VGG16"

@@ -18,6 +18,7 @@
 		5851E4CF1EE845030035D0B1 /* AppMLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5851E4CE1EE845030035D0B1 /* AppMLModel.swift */; };
 		58C34ED21EE855AF001F3971 /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 58C34ED11EE85541001F3971 /* Inceptionv3.mlmodel */; };
 		58C34ED41EE856F3001F3971 /* ImagePredictionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C34ED31EE856F3001F3971 /* ImagePredictionModel.swift */; };
+		58C34ED61EE85C62001F3971 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 58C34ED51EE85C5E001F3971 /* GoogLeNetPlaces.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		5851E4CE1EE845030035D0B1 /* AppMLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMLModel.swift; sourceTree = "<group>"; };
 		58C34ED11EE85541001F3971 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		58C34ED31EE856F3001F3971 /* ImagePredictionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePredictionModel.swift; sourceTree = "<group>"; };
+		58C34ED51EE85C5E001F3971 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				5851E4CE1EE845030035D0B1 /* AppMLModel.swift */,
 				58C34ED31EE856F3001F3971 /* ImagePredictionModel.swift */,
+				58C34ED51EE85C5E001F3971 /* GoogLeNetPlaces.mlmodel */,
 				5851E4C31EE82C640035D0B1 /* Resnet50.mlmodel */,
 				5851E4C11EE82C640035D0B1 /* VGG16.mlmodel */,
 				58C34ED11EE85541001F3971 /* Inceptionv3.mlmodel */,
@@ -163,6 +166,7 @@
 			files = (
 				583FF2AA1EE6E3630050BCEA /* CameraVC.swift in Sources */,
 				5851E4CA1EE82D3E0035D0B1 /* VGG16.mlmodel in Sources */,
+				58C34ED61EE85C62001F3971 /* GoogLeNetPlaces.mlmodel in Sources */,
 				58C34ED41EE856F3001F3971 /* ImagePredictionModel.swift in Sources */,
 				5816B35E1EE6EC4A00AFAA38 /* PreviewView.swift in Sources */,
 				5851E4CD1EE82DE90035D0B1 /* Resnet50.mlmodel in Sources */,

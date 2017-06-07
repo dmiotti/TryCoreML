@@ -12,8 +12,10 @@ final class AppMLModel {
     private let resnet50Model = Resnet50()
     private let vgg16Model = VGG16()
     private let inceptionModel = Inceptionv3()
+    private let googLeNetPlaces = GoogLeNetPlaces()
 
     enum ModelType {
+        case googLeNetPlaces
         case inceptionv3
         case resnet50
         case vgg16
@@ -22,18 +24,19 @@ final class AppMLModel {
             switch self {
             case .inceptionv3:
                 return CGSize(width: 299, height: 299)
-            case .resnet50, .vgg16:
+            case .resnet50, .vgg16, .googLeNetPlaces:
                 return CGSize(width: 224, height: 224)
             }
         }
     }
 
-    var modelType: ModelType = .inceptionv3
+    var modelType: ModelType = .googLeNetPlaces
     var model: ImagePredictionModel {
         switch modelType {
         case .inceptionv3:  return inceptionModel
         case .resnet50:     return resnet50Model
         case .vgg16:        return vgg16Model
+        case .googLeNetPlaces: return googLeNetPlaces
         }
     }
 
