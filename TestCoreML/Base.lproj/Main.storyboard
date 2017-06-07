@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MN3-Bh-xU5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="feK-wQ-RZR">
+            <objects>
+                <navigationController id="MN3-Bh-xU5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="60o-bP-azT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="A78-9L-woX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h4U-IC-Mkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-713" y="42"/>
+        </scene>
+        <!--CameraVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CameraVC" customModule="TestCoreML" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Jl-ut-t9K" customClass="PreviewView" customModule="TestCoreML" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="582"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zIm-5w-vXi">
+                                <rect key="frame" x="76" y="64" width="299" height="299"/>
+                                <color key="backgroundColor" red="0.0" green="0.68627450980000004" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="299" id="62R-6C-dfy"/>
+                                    <constraint firstAttribute="height" constant="299" id="yOm-7L-pyW"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCD-8E-p9w">
+                                <rect key="frame" x="0.0" y="646" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PCD-8E-p9w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7zs-OA-yYz"/>
+                            <constraint firstAttribute="trailing" secondItem="zIm-5w-vXi" secondAttribute="trailing" id="AT6-gc-tSP"/>
+                            <constraint firstAttribute="trailing" secondItem="PCD-8E-p9w" secondAttribute="trailing" id="DnI-MH-Z3Y"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PCD-8E-p9w" secondAttribute="bottom" id="Htk-p9-r8k"/>
+                            <constraint firstItem="PCD-8E-p9w" firstAttribute="top" secondItem="8Jl-ut-t9K" secondAttribute="bottom" id="Us4-BE-G6i"/>
+                            <constraint firstItem="8Jl-ut-t9K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Vrs-5S-IOG"/>
+                            <constraint firstAttribute="trailing" secondItem="8Jl-ut-t9K" secondAttribute="trailing" id="Za5-0O-ewS"/>
+                            <constraint firstItem="8Jl-ut-t9K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="cNx-i6-glt"/>
+                            <constraint firstItem="zIm-5w-vXi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="d9s-vC-0kx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="INJ-Rz-hma">
+                        <barButtonItem key="leftBarButtonItem" title="Switch ML" id="k4p-sL-43g">
+                            <connections>
+                                <action selector="switchMLModel:" destination="BYZ-38-t0r" id="pj8-bq-MRT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Togger Preview" id="N1u-pS-7bD">
+                            <connections>
+                                <action selector="togglePreview:" destination="BYZ-38-t0r" id="WVi-3B-zg5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="livePredicionLabel" destination="PCD-8E-p9w" id="2S2-5d-X1a"/>
+                        <outlet property="previewImageView" destination="zIm-5w-vXi" id="eR0-Gv-sau"/>
+                        <outlet property="previewImageViewHeightConstraint" destination="yOm-7L-pyW" id="m08-O0-LMa"/>
+                        <outlet property="previewImageViewWidthConstraint" destination="62R-6C-dfy" id="1Lu-TC-0WS"/>
+                        <outlet property="previewView" destination="8Jl-ut-t9K" id="slP-KJ-nwc"/>
+                        <outlet property="switchMLBarBtn" destination="k4p-sL-43g" id="S2l-zI-cUY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="61.600000000000001" y="38.23088455772114"/>
+        </scene>
+    </scenes>
+</document>
