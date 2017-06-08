@@ -10,15 +10,13 @@ import UIKit
 import AVFoundation
 import CoreML
 import Vision
+import CoreTelephony
 
 /// Main view controller
 final class CameraVC: UIViewController {
 
     @IBOutlet weak var previewView: PreviewView!
-    @IBOutlet weak var livePredicionLabel: UILabel!
-    @IBOutlet weak var previewImageView: UIImageView!
-    @IBOutlet weak var previewImageViewWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var previewImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var switchMLBarBtn: UIBarButtonItem!
 
     private let session = AVCaptureSession()
@@ -29,9 +27,7 @@ final class CameraVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewImageView.layer.borderColor = UIColor.green.cgColor
-        previewImageView.layer.borderWidth = 1
-        livePredicionLabel.text = "Waiting"
+        textView.text = "Waiting"
         previewView.session = session
         ensureAuthorizationStatus()
         configureInterfaceBasedOnModelType()
@@ -52,10 +48,6 @@ final class CameraVC: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         sessionQueue.async { self.session.stopRunning() }
-    }
-
-    @IBAction func togglePreview(_ sender: Any) {
-        previewImageView.isHidden = !previewImageView.isHidden
     }
 
     @IBAction func switchMLModel(_ sender: Any) {
@@ -105,7 +97,7 @@ final class CameraVC: UIViewController {
             DispatchQueue.main.async { self.showMessage(message) }
             return
         }
-        self.livePredicionLabel.text = message
+        self.textView.text = message
     }
 
     private func configureInterfaceBasedOnModelType() {
@@ -116,10 +108,6 @@ final class CameraVC: UIViewController {
         case .resnet50:         switchMLBarBtn.title = "Resnet50"
         case .vgg16:            switchMLBarBtn.title = "VGG16"
         }
-        previewView.modelType = type
-        previewImageViewWidthConstraint.constant = type.imageSize.width
-        previewImageViewHeightConstraint.constant = type.imageSize.height
-        UIView.animate(withDuration: 0.35, animations: view.layoutIfNeeded)
     }
 
     private func prepareCameraDevice() throws {
@@ -191,8 +179,23 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
             let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: 6)
 
             let vnModel = try VNCoreMLModel(for: self.model.model.model)
-            let request = VNCoreMLRequest(model: vnModel)
-            request.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop
+            let request = VNCoreMLRequest(model: vnModel, completionHandler: { (vnRequest, error) in
+                self.isAnalysing = false
+                guard let results = vnRequest.results as? [VNClassificationObservation] else {
+                    self.showMessage(error?.localizedDescription ?? "Unable to get results from VNCoreMLRequest")
+                    return
+                }
+
+                let classifications = results
+                    .filter({ $0.confidence > 0.002 })
+                    .map({
+                        let confidence = String(format: "%.4f", $0.confidence)
+                        return "\($0.identifier)(\(confidence))"
+                    }).joined(separator: "\n")
+
+                self.showMessage(classifications)
+            })
+            request.imageCropAndScaleOption = VNImageCropAndScaleOptionScaleFill
 
             try requestHandler.perform([request])
 
