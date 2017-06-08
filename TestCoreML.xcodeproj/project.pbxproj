@@ -33,6 +33,7 @@
 		5851E4C11EE82C640035D0B1 /* VGG16.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = VGG16.mlmodel; sourceTree = "<group>"; };
 		5851E4C31EE82C640035D0B1 /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlmodel; sourceTree = "<group>"; };
 		5851E4CE1EE845030035D0B1 /* AppMLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMLModel.swift; sourceTree = "<group>"; };
+		58AFBA7A1EE9381E00C7D1FE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		58C34ED11EE85541001F3971 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		58C34ED31EE856F3001F3971 /* ImagePredictionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePredictionModel.swift; sourceTree = "<group>"; };
 		58C34ED51EE85C5E001F3971 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 		583FF29B1EE6E3630050BCEA = {
 			isa = PBXGroup;
 			children = (
+				58AFBA7A1EE9381E00C7D1FE /* README.md */,
 				583FF2A61EE6E3630050BCEA /* TestCoreML */,
 				583FF2A51EE6E3630050BCEA /* Products */,
 			);
