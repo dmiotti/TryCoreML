@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import CoreML
+import Vision
 
 /// Main view controller
 final class CameraVC: UIViewController {
@@ -19,7 +20,6 @@ final class CameraVC: UIViewController {
     @IBOutlet weak var previewImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var previewImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchMLBarBtn: UIBarButtonItem!
-    @IBOutlet weak var analysisTagView: UIView!
 
     private let session = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "session.queue")
@@ -39,9 +39,7 @@ final class CameraVC: UIViewController {
             do {
                 try self.prepareCameraDevice()
             } catch let error {
-                DispatchQueue.main.async {
-                    self.livePredicionLabel.text = error.localizedDescription
-                }
+                self.showMessage(error.localizedDescription)
             }
         }
     }
@@ -97,6 +95,17 @@ final class CameraVC: UIViewController {
         default:
             break
         }
+    }
+
+    /// Thread safe method to show an error
+    ///
+    /// - Parameter message: The error message to be shown
+    private func showMessage(_ message: String) {
+        if !Thread.isMainThread {
+            DispatchQueue.main.async { self.showMessage(message) }
+            return
+        }
+        self.livePredicionLabel.text = message
     }
 
     private func configureInterfaceBasedOnModelType() {
@@ -177,22 +186,20 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
 
     private func processImage(pixelBuffer: CVPixelBuffer) {
         isAnalysing = true
-        do {
-            let image = try model.prepareImage(pixelBuffer: pixelBuffer)
-            DispatchQueue.main.async {
-                if !self.previewImageView.isHidden {
-                    self.previewImageView.image = UIImage(ciImage: CIImage(cvPixelBuffer: image))
-                }
-            }
 
-            let prediction = try model.model.prediction(from: image)
-            DispatchQueue.main.async {
-                self.livePredicionLabel.text = prediction.classLabel
-                self.isAnalysing = false
-            }
+        do {
+            let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: 6)
+
+            let vnModel = try VNCoreMLModel(for: self.model.model.model)
+            let request = VNCoreMLRequest(model: vnModel)
+            request.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop
+
+            try requestHandler.perform([request])
+
         } catch let error {
-            livePredicionLabel.text = error.localizedDescription
-            isAnalysing = false
+            showMessage(error.localizedDescription)
         }
+
+        isAnalysing = false
     }
 }

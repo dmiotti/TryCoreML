@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreML
 
 protocol ImagePredictionOutput {
     var classLabel: String { get }
@@ -14,6 +15,7 @@ protocol ImagePredictionOutput {
 }
 
 protocol ImagePredictionModel {
+    var model: MLModel { get }
     func prediction(from pixelBuffer: CVPixelBuffer) throws -> ImagePredictionOutput
 }
 
