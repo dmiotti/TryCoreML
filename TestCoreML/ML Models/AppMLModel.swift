@@ -55,7 +55,7 @@ final class AppMLModel {
 
         let croppedImage = CIImage(cvPixelBuffer: pixelBuffer)
             .cropping(to: cropRect)
-            .applyingOrientation(6)
+            .applyingOrientation(6) // Back camera is flipped to right
 
         let ciContext = CIContext(options: nil)
 

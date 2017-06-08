@@ -192,7 +192,7 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
         } catch let error {
             livePredicionLabel.text = error.localizedDescription
-            self.isAnalysing = false
+            isAnalysing = false
         }
     }
 }
