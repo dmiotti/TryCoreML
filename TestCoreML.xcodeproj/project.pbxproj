@@ -307,10 +307,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VLMBA8Q5QL;
+				DEVELOPMENT_TEAM = B58NS3SSSN;
 				INFOPLIST_FILE = TestCoreML/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wopata.TestCoreML;
+				PRODUCT_BUNDLE_IDENTIFIER = com.muxumuxu.TestCoreML;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -321,10 +321,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VLMBA8Q5QL;
+				DEVELOPMENT_TEAM = B58NS3SSSN;
 				INFOPLIST_FILE = TestCoreML/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wopata.TestCoreML;
+				PRODUCT_BUNDLE_IDENTIFIER = com.muxumuxu.TestCoreML;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

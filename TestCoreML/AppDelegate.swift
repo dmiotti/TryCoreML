@@ -3,7 +3,7 @@
 //  TestCoreML
 //
 //  Created by David Miotti on 06/06/2017.
-//  Copyright © 2017 Wopata. All rights reserved.
+//  Copyright © 2017 MuxuMuxu. All rights reserved.
 //
 
 import UIKit
