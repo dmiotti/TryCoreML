@@ -19,11 +19,13 @@ final class CameraVC: UIViewController {
     @IBOutlet weak var previewImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var previewImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchMLBarBtn: UIBarButtonItem!
+    @IBOutlet weak var analysisTagView: UIView!
 
     private let session = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "session.queue")
     private let mlQueue = DispatchQueue(label: "ml.queue")
     private let model = AppMLModel()
+    private var isAnalysing: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,9 @@ final class CameraVC: UIViewController {
             do {
                 try self.prepareCameraDevice()
             } catch let error {
-                self.livePredicionLabel.text = error.localizedDescription
+                DispatchQueue.main.async {
+                    self.livePredicionLabel.text = error.localizedDescription
+                }
             }
         }
     }
@@ -98,10 +102,10 @@ final class CameraVC: UIViewController {
     private func configureInterfaceBasedOnModelType() {
         let type = model.modelType
         switch type {
-        case .googLeNetPlaces: switchMLBarBtn.title = "GoogLeNetPlaces"
-        case .inceptionv3:  switchMLBarBtn.title = "Inceptionv3"
-        case .resnet50:     switchMLBarBtn.title = "Resnet50"
-        case .vgg16:        switchMLBarBtn.title = "VGG16"
+        case .googLeNetPlaces:  switchMLBarBtn.title = "GoogLeNetPlaces"
+        case .inceptionv3:      switchMLBarBtn.title = "Inceptionv3"
+        case .resnet50:         switchMLBarBtn.title = "Resnet50"
+        case .vgg16:            switchMLBarBtn.title = "VGG16"
         }
         previewView.modelType = type
         previewImageViewWidthConstraint.constant = type.imageSize.width
@@ -167,11 +171,12 @@ final class CameraVC: UIViewController {
 // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
 extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        guard !isAnalysing, let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         mlQueue.async { self.processImage(pixelBuffer: pixelBuffer) }
     }
 
     private func processImage(pixelBuffer: CVPixelBuffer) {
+        isAnalysing = true
         do {
             let image = try model.prepareImage(pixelBuffer: pixelBuffer)
             DispatchQueue.main.async {
@@ -183,9 +188,11 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
             let prediction = try model.model.prediction(from: image)
             DispatchQueue.main.async {
                 self.livePredicionLabel.text = prediction.classLabel
+                self.isAnalysing = false
             }
         } catch let error {
             livePredicionLabel.text = error.localizedDescription
+            self.isAnalysing = false
         }
     }
 }
