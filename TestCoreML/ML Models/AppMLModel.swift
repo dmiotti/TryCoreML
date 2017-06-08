@@ -30,7 +30,7 @@ final class AppMLModel {
         }
     }
 
-    var modelType: ModelType = .googLeNetPlaces
+    var modelType: ModelType = .inceptionv3
     var model: ImagePredictionModel {
         switch modelType {
         case .inceptionv3:  return inceptionModel
