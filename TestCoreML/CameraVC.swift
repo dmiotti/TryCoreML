@@ -187,7 +187,7 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
 
                 let classifications = results
-                    .filter({ $0.confidence > 0.002 })
+                    .filter({ $0.confidence > 0.3 })
                     .map({
                         let confidence = String(format: "%.4f", $0.confidence)
                         return "\($0.identifier)(\(confidence))"
@@ -195,7 +195,7 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
 
                 self.showMessage(classifications)
             })
-            request.imageCropAndScaleOption = VNImageCropAndScaleOptionScaleFill
+            request.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop
 
             try requestHandler.perform([request])
 
