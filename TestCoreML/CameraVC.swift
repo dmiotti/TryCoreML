@@ -198,11 +198,9 @@ extension CameraVC: AVCaptureVideoDataOutputSampleBufferDelegate {
             request.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop
 
             try requestHandler.perform([request])
-
         } catch let error {
             showMessage(error.localizedDescription)
+            isAnalysing = false
         }
-
-        isAnalysing = false
     }
 }
